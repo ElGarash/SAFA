@@ -12,14 +12,14 @@ def spatial_aware(input_feature, dimension, trainable, name):
             shape=[height * width, int(height * width / 2), dimension],
             trainable=trainable,
             initializer=tf.truncated_normal_initializer(mean=0.0, stddev=0.005),
-            regularizer=tf.contrib.layers.l2_regularizer(0.01),
+            regularizer=tf.keras.regularizers.l2(l2=0.01),
         )
         bias1 = tf.get_variable(
             name="biases1",
             shape=[1, int(height * width / 2), dimension],
             trainable=trainable,
             initializer=tf.constant_initializer(0.1),
-            regularizer=tf.contrib.layers.l1_regularizer(0.01),
+            regularizer=tf.keras.regularizers.l1(l1=0.01),
         )
         # vec2 = tf.matmul(vec1, weight1) + bias1
         vec2 = tf.einsum("bi, ijd -> bjd", vec1, weight1) + bias1
@@ -29,14 +29,14 @@ def spatial_aware(input_feature, dimension, trainable, name):
             shape=[int(height * width / 2), height * width, dimension],
             trainable=trainable,
             initializer=tf.truncated_normal_initializer(mean=0.0, stddev=0.005),
-            regularizer=tf.contrib.layers.l2_regularizer(0.01),
+            regularizer=tf.keras.regularizers.l2(l2=0.01),
         )
         bias2 = tf.get_variable(
             name="biases2",
             shape=[1, height * width, dimension],
             trainable=trainable,
             initializer=tf.constant_initializer(0.1),
-            regularizer=tf.contrib.layers.l1_regularizer(0.01),
+            regularizer=tf.keras.regularizers.l1(l1=0.01),
         )
         vec3 = tf.einsum("bjd, jid -> bid", vec2, weight2) + bias2
 
