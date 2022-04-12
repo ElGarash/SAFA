@@ -89,12 +89,15 @@ class InputData:
 
             # satellite
             if self.polar:
-                img = cv2.imread(self.polar_img_root + self.id_list[img_idx][0])
+                img = cv2.imread(self.polar_img_root + self.id_test_list[img_idx][0])
             else:
-                img = cv2.imread(self.img_root + self.id_list[img_idx][0])
+                img = cv2.imread(self.img_root + self.id_test_list[img_idx][0])
                 
             if not self.polar:
                 img = cv2.resize(img, (256, 256), interpolation=cv2.INTER_AREA)
+            else:
+                img = cv2.resize(img, (616, 112), interpolation=cv2.INTER_AREA)
+                
 
             img_dup = img.copy()
 
