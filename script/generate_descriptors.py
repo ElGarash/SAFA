@@ -3,11 +3,14 @@ import os
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
+DESCRIPTORS_DIRECTORY = "/kaggle/working/descriptors/SAFA"	
+
 from spatial_net import *
 from OriNet_CVACT.input_data_act_polar import InputData
 import tensorflow.compat.v1 as tf
 import numpy as np
 import argparse
+import pickle
 
 tf.compat.v1.disable_eager_execution()
 
@@ -23,33 +26,16 @@ args = parser.parse_args()
 network_type = args.network_type
 polar = args.polar
 
-data_type = "CVACT"
-
 batch_size = 32
 is_training = False
-loss_weight = 10.0
-number_of_epoch = 100
 
-learning_rate_val = 1e-5
-keep_prob_val = 1
 # -------------------------------------------------------- #
 
-
-def validate(dist_array, top_k):
-    accuracy = 0.0
-    data_amount = 0.0
-    for i in range(dist_array.shape[0]):
-        gt_dist = dist_array[i, i]
-        prediction = np.sum(dist_array[:, i] < gt_dist)
-        if prediction < top_k:
-            accuracy += 1.0
-        data_amount += 1.0
-    accuracy /= data_amount
-
-    return accuracy
-
-
 if __name__ == "__main__":
+
+    if os.path.exists(f"{DESCRIPTORS_DIRECTORY}/satellite_descriptors.pkl"):	
+        print("Satellite descriptor already exists on the file system.")	
+        exit(0)
 
     tf.reset_default_graph()
 
@@ -92,11 +78,11 @@ if __name__ == "__main__":
         load_model_path = "/kaggle/working/models/SAFA/CVACT/Trained/model.ckpt"
         saver.restore(sess, load_model_path)
 
-        print("   Model loaded from: %s" % load_model_path)
+        print("Model loaded from: %s" % load_model_path)
         print("load model...FINISHED")
 
         print("validate...")
-        print("   compute global descriptors")
+        print("compute global descriptors")
         input_data.reset_scan()
 
         val_i = 0
@@ -133,3 +119,16 @@ if __name__ == "__main__":
         print("top5", ":", val_accuracy[0, 5])
         print("top10", ":", val_accuracy[0, 10])
         print("top1%", ":", val_accuracy[0, -1])
+
+
+        if not os.path.exists(DESCRIPTORS_DIRECTORY):	
+            os.makedirs(DESCRIPTORS_DIRECTORY, exist_ok=True)	
+        # store descriptors and distance matrices	
+        with open(f'{DESCRIPTORS_DIRECTORY}/dist_array_total.pkl', 'wb') as f:	
+            pickle.dump(dist_array, f)	
+        	
+        with open(f'{DESCRIPTORS_DIRECTORY}/ground_descriptors.pkl', 'wb') as f:	
+            pickle.dump(grd_global_descriptor, f)	
+        	
+        with open(f'{DESCRIPTORS_DIRECTORY}/satellite_descriptors.pkl', 'wb') as f:	
+            pickle.dump(sat_global_descriptor, f)
