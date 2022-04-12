@@ -1,5 +1,5 @@
 from VGG import VGG16
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 
 def spatial_aware(input_feature, dimension, trainable, name):
