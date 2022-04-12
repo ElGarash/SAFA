@@ -53,13 +53,13 @@ class VGG16:
                 name="weights",
                 shape=[kernel_dim, kernel_dim, input_dim, output_dim],
                 trainable=trainable,
-                initializer=tf.contrib.layers.xavier_initializer(),
+                initializer=tf.glorot_normal_initializer(),
             )
             bias = tf.get_variable(
                 name="biases",
                 shape=[output_dim],
                 trainable=trainable,
-                initializer=tf.contrib.layers.xavier_initializer(),
+                initializer=tf.glorot_normal_initializer(),
             )
 
             if activated:
