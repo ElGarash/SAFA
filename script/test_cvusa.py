@@ -1,7 +1,7 @@
 # import os
 
-# os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-# os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+# os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+# os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 from spatial_net import *
 from input_data_cvusa import InputData
@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
         print("load model...")
 
-        load_model_path = "../Model/CVUSA/Trained/model.ckpt"
+        load_model_path = "/kaggle/working/models/SAFA/CVUSA/Trained/model.ckpt"
         saver.restore(sess, load_model_path)
 
         print("validate...")

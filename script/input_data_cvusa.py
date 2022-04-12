@@ -5,7 +5,8 @@ import numpy as np
 
 class InputData:
 
-    img_root = "../Data/CVUSA/"
+    img_root = "/kaggle/input/cvusa-dataset/cvusa-localization/"
+    polar_img_root = "/kaggle/input/dsm-dynamic-similarity-matching/Data/CVUSA/"
 
     def __init__(self, polar):
         self.polar = polar
@@ -87,9 +88,15 @@ class InputData:
                 print(self.id_test_list[img_idx][0])
 
             # satellite
-            img = cv2.imread(self.img_root + self.id_test_list[img_idx][0])
+            if self.polar:
+                img = cv2.imread(self.polar_img_root + self.id_test_list[img_idx][0])
+            else:
+                img = cv2.imread(self.img_root + self.id_test_list[img_idx][0])
+                
             if not self.polar:
                 img = cv2.resize(img, (256, 256), interpolation=cv2.INTER_AREA)
+            else:
+                img = cv2.resize(img, (616, 112), interpolation=cv2.INTER_AREA)
 
             img_dup = img.copy()
 
@@ -142,9 +149,6 @@ class InputData:
 
             img_idx = self.id_idx_list[self.__cur_id + i]
             i += 1
-
-            # satellite
-            img = cv2.imread(self.img_root + self.id_list[img_idx][0])
 
             if not self.polar:
                 if img is None:
