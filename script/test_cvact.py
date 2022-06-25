@@ -85,7 +85,7 @@ if __name__ == "__main__":
 
         print("load model...")
 
-        load_model_path = "../Model/CVACT/Trained/model.ckpt"
+        load_model_path = "/kaggle/working/models/SAFA/CVACT/Trained/model.ckpt"
         saver.restore(sess, load_model_path)
 
         print("   Model loaded from: %s" % load_model_path)
