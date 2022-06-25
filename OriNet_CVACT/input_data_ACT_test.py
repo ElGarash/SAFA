@@ -16,7 +16,7 @@ class InputData:
 
     # the path of your CVACT dataset
 
-    img_root = "../Data/ANU_data_test/"
+    img_root = "/kaggle/input/cvact-small"
 
     yaw_pitch_grd = sio.loadmat(
         "./OriNet_CVACT/CVACT_orientations/yaw_pitch_grd_CVACT.mat"

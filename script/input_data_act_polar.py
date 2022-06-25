@@ -6,7 +6,8 @@ import scipy.io as sio
 
 class InputData:
 
-    img_root = "../Data/CVACT/"
+    img_root = "/kaggle/input/cvact-small"
+    img_polar_root = '/kaggle/input/cvact-polar-images/cvact-small'
 
     posDistThr = 25
     posDistSqThr = posDistThr * posDistThr
@@ -62,7 +63,7 @@ class InputData:
             )
             if self.polar:
                 sat_id_ori = (
-                    self.img_root
+                    self.img_polar_root
                     + "polarmap/"
                     + anuData["panoIds"][i]
                     + "_satView_polish.png"
