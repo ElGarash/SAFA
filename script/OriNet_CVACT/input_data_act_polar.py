@@ -7,7 +7,7 @@ import scipy.io as sio
 class InputData:
 
     img_root = "/kaggle/input/cvact-small/"
-    img_polar_root = '/kaggle/input/cvact-polar-images/cvact-small'
+    img_polar_root = '/kaggle/input/cvact-polar-images/cvact-small/'
 
     posDistThr = 25
     posDistSqThr = posDistThr * posDistThr
@@ -21,7 +21,7 @@ class InputData:
     def __init__(self, polar):
         self.polar = polar
 
-        self.allDataList = "./OriNet_CVACT/CVACT_orientations/ACT_data.mat"
+        self.allDataList = "/kaggle/input/cvact-small/ACT_data.mat"
         print("InputData::__init__: load %s" % self.allDataList)
 
         self.__cur_allid = 0  # for training
