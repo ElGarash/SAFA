@@ -9,6 +9,7 @@ import tensorflow as tf
 import numpy as np
 import argparse
 
+tf.compat.v1.disable_eager_execution()
 
 parser = argparse.ArgumentParser(description="TensorFlow implementation.")
 
