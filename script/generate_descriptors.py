@@ -108,17 +108,8 @@ if __name__ == "__main__":
         dist_array = 2 - 2 * np.matmul(
             sat_global_descriptor, np.transpose(grd_global_descriptor)
         )
-        top1_percent = int(dist_array.shape[0] * 0.01) + 1
-        val_accuracy = np.zeros((1, top1_percent))
         print("start")
-        for i in range(top1_percent):
-            val_accuracy[0, i] = validate(dist_array, i)
 
-        print(network_type, ":")
-        print("top1", ":", val_accuracy[0, 1])
-        print("top5", ":", val_accuracy[0, 5])
-        print("top10", ":", val_accuracy[0, 10])
-        print("top1%", ":", val_accuracy[0, -1])
 
 
         if not os.path.exists(DESCRIPTORS_DIRECTORY):	

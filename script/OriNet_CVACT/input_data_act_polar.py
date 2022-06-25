@@ -34,32 +34,8 @@ class InputData:
 
         idx = 0
         for i in range(0, len(anuData["panoIds"])):
-            grd_id_ori = (
-                self.img_root
-                + "_"
-                + anuData["panoIds"][i]
-                + "/"
-                + anuData["panoIds"][i]
-                + "_zoom_2.jpg"
-            )
             grd_id_align = (
-                self.img_root + "streetview/" + anuData["panoIds"][i] + "_grdView.png"
-            )
-            grd_id_ori_sem = (
-                self.img_root
-                + "_"
-                + anuData["panoIds"][i]
-                + "/"
-                + anuData["panoIds"][i]
-                + "_zoom_2_sem.jpg"
-            )
-            grd_id_align_sem = (
-                self.img_root
-                + "_"
-                + anuData["panoIds"][i]
-                + "/"
-                + anuData["panoIds"][i]
-                + "_zoom_2_aligned_sem.jpg"
+                self.img_root + "streetview/streetview/" + anuData["panoIds"][i] + "_grdView.jpg"
             )
             if self.polar:
                 sat_id_ori = (
@@ -85,10 +61,7 @@ class InputData:
             )
             self.id_alllist.append(
                 [
-                    grd_id_ori,
                     grd_id_align,
-                    grd_id_ori_sem,
-                    grd_id_align_sem,
                     sat_id_ori,
                     sat_id_sem,
                     anuData["utm"][i][0],
@@ -109,8 +82,8 @@ class InputData:
 
         self.utms_all = np.zeros([2, self.all_data_size], dtype=np.float32)
         for i in range(0, self.all_data_size):
-            self.utms_all[0, i] = self.id_alllist[i][6]
-            self.utms_all[1, i] = self.id_alllist[i][7]
+            self.utms_all[0, i] = self.id_alllist[i][3]
+            self.utms_all[1, i] = self.id_alllist[i][4]
 
         self.training_inds = anuData["trainSet"]["trainInd"][0][0] - 1
 
@@ -158,7 +131,7 @@ class InputData:
             img_idx = self.__cur_test_id + i
 
             # satellite
-            img = cv2.imread(self.valList[img_idx][4])
+            img = cv2.imread(self.valList[img_idx][1])
             if self.polar:
                 if (
                     img is None
@@ -167,14 +140,14 @@ class InputData:
                 ):
                     print(
                         "InputData::next_pair_batch: read fail: %s, %d, "
-                        % (self.valList[img_idx][4], i)
+                        % (self.valList[img_idx][1], i)
                     )
                     continue
             else:
                 if img is None or img.shape[0] != img.shape[1]:
                     print(
                         "InputData::next_pair_batch: read fail: %s, %d, "
-                        % (self.valList[img_idx][4], i)
+                        % (self.valList[img_idx][1], i)
                     )
                     continue
 
@@ -186,12 +159,12 @@ class InputData:
             batch_sat[i, :, :, :] = img
 
             # ground
-            img = cv2.imread(self.valList[img_idx][1])
+            img = cv2.imread(self.valList[img_idx][0])
 
             if img is None:
                 print(
                     "InputData::next_pair_batch: read fail: %s, %d, "
-                    % (self.valList[img_idx][2], i)
+                    % (self.valList[img_idx][0], i)
                 )
                 continue
             img = cv2.resize(img, (616, 112), interpolation=cv2.INTER_AREA)
