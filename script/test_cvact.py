@@ -1,5 +1,8 @@
 import os
 
+os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+
 from spatial_net import *
 from OriNet_CVACT.input_data_act_polar import InputData
 import tensorflow as tf
