@@ -66,7 +66,7 @@ class InputData:
                     self.img_polar_root
                     + "polarmap/"
                     + anuData["panoIds"][i]
-                    + "_satView_polish.png"
+                    + "_satView_polish.jpg"
                 )
             else:
                 sat_id_ori = (
