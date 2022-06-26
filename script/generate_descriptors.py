@@ -104,12 +104,9 @@ if __name__ == "__main__":
             ] = grd_global_val
             val_i += sat_global_val.shape[0]
 
-        print("   compute accuracy")
         dist_array = 2 - 2 * np.matmul(
             sat_global_descriptor, np.transpose(grd_global_descriptor)
         )
-        print("start")
-
 
 
         if not os.path.exists(DESCRIPTORS_DIRECTORY):	

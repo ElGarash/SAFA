@@ -35,7 +35,7 @@ class InputData:
         idx = 0
         for i in range(0, len(anuData["panoIds"])):
             grd_id_align = (
-                self.img_root + "streetview/streetview/" + anuData["panoIds"][i] + "_grdView.jpg"
+                self.img_polar_root + "streetview_polish/" + anuData["panoIds"][i] + "_grdView.jpg"
             )
             if self.polar:
                 sat_id_ori = (

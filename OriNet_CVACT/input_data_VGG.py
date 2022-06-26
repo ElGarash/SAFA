@@ -12,6 +12,9 @@ class InputData:
 
     img_root = "/kaggle/input/cvact-small/"
 
+    img_polar_root = '/kaggle/input/cvact-polar-images/cvact-small/'
+
+
     # yaw_pitch_grd = sio.loadmat('./CVACT_orientations/yaw_pitch_grd_CVACT.mat')
     # yaw_sat = sio.loadmat('./CVACT_orientations/yaw_radius_sat_CVACT.mat')
 
@@ -42,7 +45,7 @@ class InputData:
         idx = 0
         for i in range(0, len(anuData["panoIds"])):
             grd_id_align = (
-                self.img_root + "streetview/streetview/" + anuData["panoIds"][i] + "_grdView.jpg"
+                self.img_polar_root + "streetview_polish/" + anuData["panoIds"][i] + "_grdView.jpg"
             )
             sat_id_ori = (
                 self.img_root
