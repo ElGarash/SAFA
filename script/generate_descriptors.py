@@ -26,7 +26,7 @@ args = parser.parse_args()
 network_type = args.network_type
 polar = args.polar
 
-batch_size = 32
+batch_size = 8
 is_training = False
 
 # -------------------------------------------------------- #
